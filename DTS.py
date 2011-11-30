@@ -45,18 +45,30 @@ def translateDataType2DTS(dt):
 # Only spits out the meat code; not the fluff.
 print('---------[ C# Code Section ]------\n\n')
 for index in schema.split('<'):
-    codeLine = 'public virtual '
+    
     try:
         value = index.split('<')[0].split(',')[0].replace(' ', '')
         dataType = index.split('<')[0].split(',')[1].replace(' ', '')
     except:
         continue
 
+
+
     newDTS = translateDataType2DTS(dataType)
+
+    codeLine = '/// <summary>\n'
+    codeLine += '/// ' + value + '\n'
+
+    if ('string' in newDTS.DataType.lower()):        
+        codeLine += '/// <remarks>This field has a maximum length of ' + str(newDTS.Size) + ' characters.</remarks>\n'
+    
+    codeLine += '/// </summary>\n'
+    codeLine += 'public virtual '
+    
     codeLine += newDTS.DataType + ' ' + value
 
     codeLine += ' { get; set; }'
-    print(codeLine)
+    print(codeLine + '\n')
     codeLine = ''
 
 # Only spits out the meat hbXML; no fluff.
