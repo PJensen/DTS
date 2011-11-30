@@ -81,7 +81,14 @@ for index in schema.split('<'):
     codeLine = ''
 
 # Only spits out the meat hbXML; no fluff.
-print('-------------[ Auto Generated Sanity Code]--------------')
+print('-------------[ Auto Generated Sanity Code]--------------\n\n')
+print('        /// <summary>')
+print('        /// Check the field lengths for string based fields in this object.')
+print('        /// </summary>')
+print('        public void CheckFieldLengths()')
+print('        {')
+
+
 for index in schema.split('<'):
     try:
         value = index.split('<')[0].split(',')[0].replace(' ', '')
@@ -95,11 +102,11 @@ for index in schema.split('<'):
         continue
     elif (newDTS.DataType != 'String'):
         continue
-
+    
     if (newDTS.DataType == 'String') and (newDTS.Size > 0):
-        print("if (Utility.Utility.chkLenExceeded(aContact." +  str(value) + ", " + str(newDTS.Size) + "))")
-        print('\tgenerateLengthException("' + value + '", aTypeOfContact);')
+        print('            if (Util.chkLenExceeded(this.' + str(value) + ', ' + str(newDTS.Size) + '))')
+        print('                Util.GenerateFieldLengthException("' +  value + '");')
 
-
+print('        }')
 
         
