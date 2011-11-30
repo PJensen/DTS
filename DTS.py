@@ -40,12 +40,10 @@ def translateDataType2DTS(dt):
         
     return DTS(ret_t, size_t)
             
-    print '\n\n'
-    print
-    print
+    print('\n\n\n\n')
 
 # Only spits out the meat code; not the fluff.
-print '---------[ C# Code Section ]------\n\n'    
+print('---------[ C# Code Section ]------\n\n')
 for index in schema.split('<'):
     codeLine = 'public virtual '
     try:
@@ -58,11 +56,11 @@ for index in schema.split('<'):
     codeLine += newDTS.DataType + ' ' + value
 
     codeLine += ' { get; set; }'
-    print codeLine
+    print(codeLine)
     codeLine = ''
 
 # Only spits out the meat hbXML; no fluff.
-print '---------[ HBXML Section ]------\n\n'
+print('---------[ HBXML Section ]------\n\n')
 for index in schema.split('<'):
     codeLine = '<property name="%s" column="%s" type="%s"'
     try:
@@ -79,11 +77,11 @@ for index in schema.split('<'):
     elif (newDTS.DataType == 'String'):
         codeLine = (codeLine % (value, value, newDTS.DataType)) + '/>'
 
-    print codeLine
+    print(codeLine)
     codeLine = ''
 
 # Only spits out the meat hbXML; no fluff.
-print '-------------[ Auto Generated Sanity Code]--------------'
+print('-------------[ Auto Generated Sanity Code]--------------')
 for index in schema.split('<'):
     try:
         value = index.split('<')[0].split(',')[0].replace(' ', '')
@@ -99,8 +97,8 @@ for index in schema.split('<'):
         continue
 
     if (newDTS.DataType == 'String') and (newDTS.Size > 0):
-        print "if (Utility.Utility.chkLenExceeded(aContact." +  str(value) + ", " + str(newDTS.Size) + "))"
-        print '\tgenerateLengthException("' + value + '", aTypeOfContact);'
+        print("if (Utility.Utility.chkLenExceeded(aContact." +  str(value) + ", " + str(newDTS.Size) + "))")
+        print('\tgenerateLengthException("' + value + '", aTypeOfContact);')
 
 
 
