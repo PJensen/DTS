@@ -6,13 +6,15 @@ class DTS:
 
 # "Schema" can be grabbed from an insert somewheres;
 # starts with the first angle bracket; ends at the last bracket.
-schema = """<TypeOfLead, nvarchar(50),>
-           ,<Inactive, bit,>
-           ,<Update_RepId, int,>
-           ,<Update_Dt, datetime,>
+schema = """<ProdSubGroupCode, nvarchar(70),>
+           ,<ProdSubGroupDesc, nvarchar(255),>
+           ,<Level, numeric(18,0),>
+           ,<ClientId, int,>
            ,<Add_Dt, datetime,>
-           ,<Add_RepID, int,>
-           ,<ClientId, int,>"""
+           ,<Add_RepId, int,>
+           ,<UpDate_Dt, datetime,>
+           ,<UpDate_RepId, int,>
+           ,<Inactive, bit,>"""
 
 def translateDataType2DTS(dt):
     size_t = -1
@@ -94,6 +96,7 @@ for index in schema.split('<'):
 
 # Only spits out the meat hbXML; no fluff.
 print('-------------[ Auto Generated Sanity Code]--------------\n\n')
+print('#region IDataAccessObject Members')
 print('        /// <summary>')
 print('        /// Check the field lengths for string based fields in this object.')
 print('        /// </summary>')
@@ -120,5 +123,6 @@ for index in schema.split('<'):
         print('                Util.GenerateFieldLengthException("' +  value + '");')
 
 print('        }')
+print('#endregion')
 
         
